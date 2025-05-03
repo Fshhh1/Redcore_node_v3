@@ -42,6 +42,12 @@ def send_message():
         })
     return jsonify({"status": "Missing fields."}), 400
 
+@app.route('/public_key.pem', methods=['GET'])
+def get_public_key():
+    with open('public_key.pem', 'r') as f:
+        pubkey = f.read()
+    return pubkey, 200, {'Content-Type': 'text/plain'}
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
